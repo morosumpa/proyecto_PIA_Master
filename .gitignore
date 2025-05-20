@@ -1,0 +1,24 @@
+# Entornos virtuales
+venv/
+*/venv/
+
+# Archivos temporales
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints/
+
+# Archivos grandes o binarios
+*.pkl
+*.h5
+*.pt
+*.zip
+*.tar
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Datos sensibles o locales
+.env
+*.db
