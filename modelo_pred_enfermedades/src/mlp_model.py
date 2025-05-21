@@ -1,4 +1,7 @@
 import os
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.metrics import roc_curve, auc
 
 filepath = '../data/diabetes_data.csv'  # O la ruta correcta que mencionaste
 
@@ -58,3 +61,27 @@ if __name__ == "__main__":
     print(classification_report(y_test, y_pred_labels))
 
     print("🔍 ROC AUC:", roc_auc_score(y_test, y_pred))
+
+    # Curva ROC
+fpr, tpr, _ = roc_curve(y_test, y_pred)
+roc_auc = auc(fpr, tpr)
+
+plt.figure(figsize=(6, 4))
+plt.plot(fpr, tpr, label=f'ROC curve (AUC = {roc_auc:.2f})', color='blue')
+plt.plot([0, 1], [0, 1], linestyle='--', color='gray')
+plt.xlabel('Tasa de Falsos Positivos')
+plt.ylabel('Tasa de Verdaderos Positivos')
+plt.title('Curva ROC - Modelo MLP')
+plt.legend(loc="lower right")
+plt.tight_layout()
+plt.show()
+
+# Gráfico de barras: distribución de predicciones
+pd.Series(y_pred_labels.flatten()).value_counts().sort_index().plot(
+    kind='bar', color=['skyblue', 'salmon']
+)
+plt.xticks([0, 1], ['No Diabético', 'Diabético'], rotation=0)
+plt.ylabel('Cantidad de Predicciones')
+plt.title('Distribución de Predicciones - Modelo MLP')
+plt.tight_layout()
+plt.show()
